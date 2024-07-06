@@ -1,0 +1,6 @@
+dotnet tool install -g dotnet-script --> installs globally
+dotnet script init  --> creates a new project with launch.json to support debugging.
+
+I copied the launch.json from another folder bcoz debugging wasnt working on this existing project.
+
+Good read: https://github.com/dotnet-script/dotnet-script
