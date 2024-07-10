@@ -33,45 +33,28 @@ There are no two adjacent flowers in flowerbed.
 
 public class Solution {
     public bool CanPlaceFlowers(int[] flowerbed, int n) {
-
-        for(int i=0; i<flowerbed.Length; i++){
-            if(flowerbed[i]==0 ){
-
-               if(checkAdjacent(i,flowerbed)){
-
-                    flowerbed[i] = 1;  //plant flower
-                    --n;
-
-               }
-
-
+        for (int i = 0; i < flowerbed.Length; i++) {
+            if (flowerbed[i] == 0 && canPlantHere(i, flowerbed)) {
+                flowerbed[i] = 1;  // Plant flower
+                n--;
             }
 
-            if(n<=0){
-                break;
-            }
-
-        }
-
-        if(n==0)
-        return true;
-
-        return false;
-
-    }
-
-    private bool checkAdjacent(int i, int[] flowerbed){
-        if(i==0){
-            return false;
-        }
-
-        if(flowerbed[i-1] == 0 && flowerbed[i+1] == 0){
+            if (n <= 0) {
                 return true;
+            }
         }
 
-        return false;
+        return n <= 0;
     }
 
+    private bool canPlantHere(int i, int[] flowerbed) {
+        // Check left plot
+        bool leftEmpty = (i == 0) || (flowerbed[i - 1] == 0);
+        // Check right plot
+        bool rightEmpty = (i == flowerbed.Length - 1) || (flowerbed[i + 1] == 0);
+
+        return leftEmpty && rightEmpty;
+    }
 }
 
 void TestSolution() {
@@ -84,8 +67,8 @@ void TestSolution() {
         Console.WriteLine($"Result 1: {result1}");  // Expected: true
 
         // Test case 2
-        int[] flowerbed2 = [0,0,1,0,1];
-        int n2 = 1;
+        int[] flowerbed2 = { 1, 0, 0, 0, 1 };
+        int n2 = 2;
         bool result2 = solution.CanPlaceFlowers(flowerbed2, n2);
         Console.WriteLine($"Result 2: {result2}");  // Expected: false
 
@@ -94,4 +77,3 @@ void TestSolution() {
 
 // Call the test function
 TestSolution();
-
