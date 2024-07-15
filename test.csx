@@ -1,112 +1,50 @@
-//https://leetcode.com/problems/special-array-i/
-
-/*
-3151. Special Array I
-
-Hint
-An array is considered special if every pair of its adjacent elements contains two numbers with different parity.
-
-You are given an array of integers nums. Return true if nums is a special array, otherwise, return false.
-
- 
-
-Example 1:
-
-Input: nums = [1]
-
-Output: true
-
-Explanation:
-
-There is only one element. So the answer is true.
-
-Example 2:
-
-Input: nums = [2,1,4]
-
-Output: true
-
-Explanation:
-
-There is only two pairs: (2,1) and (1,4), and both of them contain numbers with different parity. So the answer is true.
-
-Example 3:
-
-Input: nums = [4,3,1,6]
-
-Output: false
-
-Explanation:
-
-nums[1] and nums[2] are both odd. So the answer is false.
-
- 
-
-Constraints:
-
-1 <= nums.length <= 100
-1 <= nums[i] <= 100
-
-
-*/
+using System;
 
 public class Solution {
-    public bool IsArraySpecial(int[] nums) {
-        bool special = true;
-
-         if(nums.Length==1) {return true;}
-
-        for(int i = 0 ; i< nums.Length-1; i++){
-
-
-            special = CheckSpecial(i, nums);
-
-            if(!special) { return special;}
-
-        }
-
-        return special;
+    public int MaxProfit(int[] prices) {
+        if (prices.Length == 0) return 0;
         
-    }
-
-    private bool CheckSpecial(int i, int[] nums){
-
-        if(nums[i] % 2 == 0 && nums[i+1] % 2 == 0 )
-            return false;
-
-        if(nums[i] % 2 != 0 && nums[i+1] % 2 != 0)
-            return false;
-
-        return true;        
-
+        int minPrice = prices[0];
+        int maxProfit = 0;
+        
+        for (int i = 1; i < prices.Length; i++) {
+            // Update the minimum price if the current price is lower
+            if (prices[i] < minPrice) {
+                minPrice = prices[i];
+            }
+            
+            // Calculate the potential profit and update the max profit if this profit is higher
+            int potentialProfit = prices[i] - minPrice;
+            if (potentialProfit > maxProfit) {
+                maxProfit = potentialProfit;
+            }
+        }
+        
+        return maxProfit;
     }
 }
 
+void TestSolution() {
+    Solution solution = new Solution();
 
+    // Test case 1
+    int[] prices1 = { 7, 1, 5, 3, 6, 4 };
+    Console.WriteLine($"Test 1: {solution.MaxProfit(prices1)}");  // Expected: 5
 
-        void TestSolution() {
+    // Test case 2
+    int[] prices2 = { 7, 6, 4, 3, 1 };
+    Console.WriteLine($"Test 2: {solution.MaxProfit(prices2)}");  // Expected: 0
 
-        Solution solution = new Solution();
+    // Additional test cases
+    int[] prices3 = { 2, 4, 1 };
+    Console.WriteLine($"Test 3: {solution.MaxProfit(prices3)}");  // Expected: 2
 
-        // Test case 1
-        int[] nums1 = { 1 };
-        Console.WriteLine($"Test 1: {solution.IsSpecialArray(nums1)}");  // Expected: true
+    int[] prices4 = { 1, 2, 3, 4, 5 };
+    Console.WriteLine($"Test 4: {solution.MaxProfit(prices4)}");  // Expected: 4
 
-        // Test case 2
-        int[] nums2 = { 2, 1, 4 };
-        Console.WriteLine($"Test 2: {solution.IsSpecialArray(nums2)}");  // Expected: true
+    int[] prices5 = { 7, 2, 5, 1, 3, 6 };
+    Console.WriteLine($"Test 5: {solution.MaxProfit(prices5)}");  // Expected: 5
+}
 
-        // Test case 3
-        int[] nums3 = { 4, 3, 1, 6 };
-        Console.WriteLine($"Test 3: {solution.IsSpecialArray(nums3)}");  // Expected: false
-
-        // Additional test cases
-        int[] nums4 = { 1, 2, 3, 4, 5 };
-        Console.WriteLine($"Test 4: {solution.IsSpecialArray(nums4)}");  // Expected: true
-
-        int[] nums5 = { 2, 2, 4, 6 };
-        Console.WriteLine($"Test 5: {solution.IsSpecialArray(nums5)}");  // Expected: false
-
-        }
-
-TestSolution();        
+// Execute the test cases
+TestSolution();
