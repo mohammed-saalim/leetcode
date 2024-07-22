@@ -47,3 +47,12 @@ public class Solution {
         
     }
 }
+
+
+/*
+Steps:
+1) Check every element in string and when a vowel matches. Push it into the stack
+if("aeiouAEIOU".Contains(s[i])){ stack.Push(i);}
+2) Again, Check every element in string this time append the string builder (str) when you find a vowel with the popped stack element.
+if("aeiouAEIOU".Contains(s[i])){ str.Append(stack.Pop();)}
+return str.ToString();
