@@ -1,3 +1,28 @@
+/*
+To test code
+
+void TestSolution() {
+    Solution solution = new Solution();
+
+    // Example input
+    string[] strs = { "eat", "tea", "tan", "ate", "nat", "bat" };
+    
+    // Get the result
+    IList<IList<string>> result = solution.GroupAnagrams(strs);
+    
+    // Print the result
+    foreach (var group in result) {
+        Console.WriteLine($"[{string.Join(", ", group)}]");
+    }
+}
+
+// Execute the test case
+TestSolution();
+
+
+*/
+
+
 public class Solution {
     public IList<IList<string>> GroupAnagrams(string[] strs) {
 

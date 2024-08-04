@@ -1,50 +1,31 @@
-using System;
-
 public class Solution {
-    public int MaxProfit(int[] prices) {
-        if (prices.Length == 0) return 0;
-        
-        int minPrice = prices[0];
-        int maxProfit = 0;
-        
-        for (int i = 1; i < prices.Length; i++) {
-            // Update the minimum price if the current price is lower
-            if (prices[i] < minPrice) {
-                minPrice = prices[i];
-            }
-            
-            // Calculate the potential profit and update the max profit if this profit is higher
-            int potentialProfit = prices[i] - minPrice;
-            if (potentialProfit > maxProfit) {
-                maxProfit = potentialProfit;
-            }
+    public int[] TopKFrequent(int[] nums, int k) {
+        Dictionary<int, int> frequents = new Dictionary<int, int>();
+        foreach(int num in nums){
+            if(frequents.ContainsKey(num)) frequents[num]++;
+            else frequents[num] = 1;
         }
-        
-        return maxProfit;
+
+        var sortedFrequents = frequents.OrderByDescending(pair => pair.Value);
+        return sortedFrequents.Take(k).Select(pair => pair.Key).ToArray();
+
     }
 }
+
 
 void TestSolution() {
     Solution solution = new Solution();
 
-    // Test case 1
-    int[] prices1 = { 7, 1, 5, 3, 6, 4 };
-    Console.WriteLine($"Test 1: {solution.MaxProfit(prices1)}");  // Expected: 5
-
-    // Test case 2
-    int[] prices2 = { 7, 6, 4, 3, 1 };
-    Console.WriteLine($"Test 2: {solution.MaxProfit(prices2)}");  // Expected: 0
-
-    // Additional test cases
-    int[] prices3 = { 2, 4, 1 };
-    Console.WriteLine($"Test 3: {solution.MaxProfit(prices3)}");  // Expected: 2
-
-    int[] prices4 = { 1, 2, 3, 4, 5 };
-    Console.WriteLine($"Test 4: {solution.MaxProfit(prices4)}");  // Expected: 4
-
-    int[] prices5 = { 7, 2, 5, 1, 3, 6 };
-    Console.WriteLine($"Test 5: {solution.MaxProfit(prices5)}");  // Expected: 5
+    // Example input
+    int[] nums = { 1, 1, 1, 2, 2, 3 };
+    int k = 2;
+    
+    // Get the result
+    int[] result = solution.TopKFrequent(nums, k);
+    
+    // Print the result
+    Console.WriteLine($"[{string.Join(", ", result)}]");
 }
 
-// Execute the test cases
+// Execute the test case
 TestSolution();
